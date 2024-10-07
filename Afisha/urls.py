@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path
 from movie_app import views
-
 from movie_app.views import director_list_api_view, director_detail_api_view, movies_list_api_view, movies_detail_api_view, reviews_list_api_view, reviews_detail_api_view
 urlpatterns = [
     path('admin/', admin.site.urls),

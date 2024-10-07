@@ -6,11 +6,17 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework import status
 
-@api_view(http_method_names=['GET'])
+@api_view(http_method_names=["GET"])
 def director_list_api_view(request):
-     director = Director.objects.all()
-     data = DirectorSerializer(instance=director, many=True).data
-     return Response(data=data)
+    moview_app = Director.objects.all()
+    list_ = DirectorSerializer(instance = moview_app, many = True).data
+
+    directors = Director.objects.all()
+    # Добавляем количество фильмов для каждого режиссера
+    for director_data in list_:
+        director = Director.objects.get(id=director_data['id'])
+        director_data['movies_count'] = director.movies.count()
+    return Response(data = list_, status = status.HTTP_200_OK)
 
 @api_view(http_method_names=['GET'])
 def director_detail_api_view(request, id):
@@ -20,6 +26,8 @@ def director_detail_api_view(request, id):
         return Response(data={'error': 'Page not found'}, status=status.HTTP_404_NOT_FOUND)
     data = DirectorSerializer(instance=director, many=False).data
     return Response(data=data)
+
+
 
 
 @api_view(http_method_names=['GET'])
@@ -52,4 +60,6 @@ def reviews_detail_api_view(request, id):
         return Response(data={'error': 'Page not found'}, status=status.HTTP_404_NOT_FOUND)
     data = ReviewSerializer(instance=reviews, many=False).data
     return Response(data=data)
+
+
 
