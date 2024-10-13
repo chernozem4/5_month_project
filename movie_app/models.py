@@ -18,6 +18,7 @@ class SearchTag(AbstractModel):
 
 class Director(models.Model):
     name = models.CharField(max_length=195, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
 
     def __str__(self):
@@ -32,6 +33,9 @@ class Movie(models.Model):
     genre = models.ForeignKey(Category, on_delete=models.CASCADE,
                               null=True)
     tags = models.ManyToManyField(SearchTag, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -51,6 +55,9 @@ class Review(models.Model):
     stars = models.IntegerField(choices=STARS, null=True, default=5)
     director = models.ForeignKey(Director, on_delete=models.CASCADE,
                                  related_name='all_reviews', null=True)
+    review_is_active = models.BooleanField(default=True)
+    review_created = models.DateTimeField(auto_now_add=True)
+    review_updated = models.DateTimeField(auto_now=True)
 
 
     def __str__(self):
