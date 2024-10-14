@@ -1,19 +1,22 @@
 from django.contrib import admin
 from django.urls import path
 from movie_app import views
-from movie_app.views import director_list_create_api_view, director_detail_api_view,movies_list_create_api_view, movies_detail_api_view, reviews_list_create_api_view, reviews_detail_api_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    #directors
+    # directors
     path('api/v1/director/', views.director_list_create_api_view),
     path('api/v1/director/<int:id>/', views.director_detail_api_view),
 
-    #movies
+    # movies
     path('api/v1/movies/', views.movies_list_create_api_view),
     path('api/v1/movies/<int:id>/', views.movies_detail_api_view),
 
-    #reviews
+    # reviews
     path('api/v1/reviews/', views.reviews_list_create_api_view),
-    path('api/v1/reviews/<int:id>/', views.reviews_detail_api_view)
+    path('api/v1/reviews/<int:id>/', views.reviews_detail_api_view),
+
+    # Optional: Root URL for the API
+    path('', views.api_root),  # Add this to handle the empty path
 ]
