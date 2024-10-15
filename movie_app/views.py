@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from movie_app.models import Director, Movie, Review
-from .serializers import DirectorSerializer, MovieSerializer, ReviewSerializer
+from .serializers import DirectorSerializer, MovieSerializer, ReviewSerializer, MovieValidateSerializer, DirectorValidateSerializer, ReviewValidateSerializer # , DirectorValidateSerializer, MovieValidateSerializer, ReviewValidateSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.migrations import serializer
+
 
 @api_view(http_method_names=["GET", "POST"])
 def director_list_create_api_view(request):
@@ -12,11 +14,11 @@ def director_list_create_api_view(request):
         return Response(data=DirectorSerializer(directors, many=True).data, status=status.HTTP_200_OK)
 
     elif request.method == 'POST':
-        serializer = DirectorSerializer(data=request.data)
+        serializer = DirectorValidateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data =serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(http_method_names=['GET', 'PUT', 'DELETE'])
 def director_detail_api_view(request, id):
@@ -29,11 +31,11 @@ def director_detail_api_view(request, id):
         return Response(data=DirectorSerializer(instance=director).data)
 
     elif request.method == 'PUT':
-        serializer = DirectorSerializer(instance=director, data=request.data)
+        serializer = MovieValidateSerializer(instance=director, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         director.delete()
@@ -46,11 +48,12 @@ def movies_list_create_api_view(request):
         return Response(data=MovieSerializer(movies, many=True).data, status=status.HTTP_200_OK)
 
     elif request.method == 'POST':
-        serializer = MovieSerializer(data=request.data)
+        serializer = MovieValidateSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            Movie.objects.create(**serializer.validated_data)
+
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(http_method_names=['GET', 'PUT', 'DELETE'])
 def movies_detail_api_view(request, id):
@@ -63,11 +66,11 @@ def movies_detail_api_view(request, id):
         return Response(data=MovieSerializer(instance=movie).data)
 
     elif request.method == 'PUT':
-        serializer = MovieSerializer(instance=movie, data=request.data)
+        serializer = MovieValidateSerializer(instance=movie, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         movie.delete()
@@ -80,11 +83,11 @@ def reviews_list_create_api_view(request):
         return Response(data=ReviewSerializer(reviews, many=True).data, status=status.HTTP_200_OK)
 
     elif request.method == 'POST':
-        serializer = ReviewSerializer(data=request.data)
+        serializer = ReviewValidateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(http_method_names=['GET', 'PUT', 'DELETE'])
 def reviews_detail_api_view(request, id):
@@ -97,11 +100,11 @@ def reviews_detail_api_view(request, id):
         return Response(data=ReviewSerializer(instance=review).data)
 
     elif request.method == 'PUT':
-        serializer = ReviewSerializer(instance=review, data=request.data)
+        serializer = ReviewValidateSerializer(instance=review, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         review.delete()
@@ -111,6 +114,7 @@ def reviews_detail_api_view(request, id):
 @api_view(http_method_names=['GET'])
 def api_root(request):
     return Response({
+        'Admin': '/admin/',
         'Directors': '/api/v1/director/',
         'Movies': '/api/v1/movies/',
         'Reviews': '/api/v1/reviews/',
