@@ -1,14 +1,17 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from movie_app.models import Director, Movie, Review
 from .serializers import DirectorSerializer, MovieSerializer, ReviewSerializer, MovieValidateSerializer, DirectorValidateSerializer, ReviewValidateSerializer # , DirectorValidateSerializer, MovieValidateSerializer, ReviewValidateSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.migrations import serializer
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(http_method_names=["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def director_list_create_api_view(request):
+    # print(request.user)
     if request.method == 'GET':
         directors = Director.objects.all()
         return Response(data=DirectorSerializer(directors, many=True).data, status=status.HTTP_200_OK)
@@ -111,11 +114,11 @@ def reviews_detail_api_view(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # Optional root API view
-@api_view(http_method_names=['GET'])
-def api_root(request):
-    return Response({
-        'Admin': '/admin/',
-        'Directors': '/api/v1/director/',
-        'Movies': '/api/v1/movies/',
-        'Reviews': '/api/v1/reviews/',
-    })
+# @api_view(http_method_names=['GET'])
+# def api_root(request):
+#     return Response({
+#         'Admin': '/admin/',
+#         'Directors': '/api/v1/director/',
+#         'Movies': '/api/v1/movies/',
+#         'Reviews': '/api/v1/reviews/',
+#     })
