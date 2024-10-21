@@ -19,6 +19,10 @@ class Category(AbstractModel):
 class SearchTag(AbstractModel):
     pass
 
+
+
+
+
 # Director model with a foreign key to Category
 class Director(models.Model):
     name = models.CharField(max_length=195, null=True, blank=True)  # Added blank=True for forms
@@ -26,7 +30,7 @@ class Director(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else ''
 
 # Movie model with a many-to-many relationship to SearchTag and a foreign key to Director
 class Movie(models.Model):

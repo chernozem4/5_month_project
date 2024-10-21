@@ -8,10 +8,21 @@ from users.models import ConfirmationToken
 class UserBaseValidateSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+
+
     token = serializers.CharField()
 
     def validate_password(self, password):
         return password
+
+
+
+
+class UserAuthSerializers(UserBaseValidateSerializer):
+    pass
+
+
+class UserCreateSerializer(UserBaseValidateSerializer):
     def validate_username(self, username):
         try:
             User.objects.get(username = username)
@@ -21,15 +32,6 @@ class UserBaseValidateSerializer(serializers.Serializer):
 
 
 
-class UserAuthSerializers(UserBaseValidateSerializer):
-    pass
-
-
-
-
-
-class UserCreateSerializer(UserBaseValidateSerializer):
-    pass
 
 class UserConfirmSerializer(UserBaseValidateSerializer):
 
