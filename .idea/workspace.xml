@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9441d99d-2881-4e99-9edc-452b7ced0f99" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Afisha/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Afisha/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Afisha/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Afisha/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -107,7 +103,12 @@
       <workItem from="1729273499446" duration="578000" />
       <workItem from="1729274092955" duration="2915000" />
       <workItem from="1729281859498" duration="451000" />
-      <workItem from="1729515534569" duration="883000" />
+      <workItem from="1729515534569" duration="8025000" />
+      <workItem from="1729596176891" duration="422000" />
+      <workItem from="1729770298868" duration="6725000" />
+      <workItem from="1729783578388" duration="4493000" />
+      <workItem from="1729936468088" duration="15000" />
+      <workItem from="1729948550002" duration="1480000" />
     </task>
     <servers />
   </component>
